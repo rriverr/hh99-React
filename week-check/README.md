@@ -1,5 +1,3 @@
-<br>
-
 ## ✅ 주간 평점 페이지 
 ![week-checker](https://user-images.githubusercontent.com/98695286/161048673-d0e5d1cc-ac11-40c0-a07e-7fb39eb8a450.gif)
 
