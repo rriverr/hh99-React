@@ -1,7 +1,8 @@
-<br>
 
 ## 📕✏ 나만의 사전
 ![GIF30](https://user-images.githubusercontent.com/98695286/161056503-233695ed-5e25-4135-9d32-b2e48ce96fd9.gif)
+
+__주요기능__
 
   - FireStore-Redux 연동
   - CRUD
