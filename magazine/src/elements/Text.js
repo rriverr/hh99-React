@@ -12,7 +12,7 @@ const Text = (props) => {
     textalign: textalign,
   };
 
-  console.log("children",children)
+  // console.log("children",children)
 
   return (
     <P {...styles}>
