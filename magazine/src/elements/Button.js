@@ -5,17 +5,21 @@ const Button = (props) => {
 
   const { type, margin, width, height, label } = props;
 
-  if(type === "line") {
+  if (type === "line") {
     return (
-    <LineBtn {...props}>{label}</LineBtn>
+      <LineBtn {...props}>{label}</LineBtn>
     )
-  } else if(type === "none") {
+  } else if (type === "none") {
     return (
-    <NoneBtn {...props}>{label}</NoneBtn>
+      <NoneBtn {...props}>{label}</NoneBtn>
+    )
+  } else if (type === "circle") {
+    return (
+    <CircleBtn {...props}>{label}</CircleBtn>
     )
   } else {
     return (
-    <Btn {...props}>{label}</Btn>
+      <Btn {...props}>{label}</Btn>
     )
   }
 
@@ -64,11 +68,30 @@ const NoneBtn = styled.button`
   height: ${(props) => props.height};
 
   border: none;
+  ${'' /* border-bottom: 2px solid #333; */}
 
   background-color: transparent;
 
   font-weight: 600;
   color: #333;
+`
+
+const CircleBtn = styled.button`
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+
+  margin: ${(props) => props.margin};
+
+  width: ${(props) => props.width};
+  height: ${(props) => props.width};
+
+  border: none;
+  border-radius: ${(props) => props.width};
+
+  background-color: #333;
+  color: #fff;
+  font-size: 2em;
 `
 
 export default Button;

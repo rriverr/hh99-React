@@ -7,19 +7,43 @@ import Header from '../components/Header';
 import PostList from '../pages/PostList';
 import LogIn from '../pages/LogIn'
 import SignUp from '../pages/SignUp';
+import Detail from '../pages/Detail';
+import Upload from '../pages/Upload';
+
+import { useDispatch } from 'react-redux';
+import { actionCreaters as userActions } from '../redux/modules/user';
+import { apiKey } from "./firebase";
+import { Grid } from '../elements';
+
 
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`
+  const is_session = sessionStorage.getItem(_session_key) ? true : false;
+
+  React.useEffect(() => {
+    if (is_session) {
+      dispatch(userActions.loginCheckFB());
+    }
+  }, [])
+
   return (
     <React.Fragment>
-      <ConnectedRouter history={history}> 
-        <Header/>
-        <Route path="/" exact component={PostList}/>
-        <Route path="/login" exact component={LogIn}/>
-        <Route path="/signup" exact component={SignUp}/>
-      </ConnectedRouter>
+      <Grid>
+        <Header />
+        <ConnectedRouter history={history}>
+          <Route path="/" exact component={PostList} />
+          <Route path="/login" exact component={LogIn} />
+          <Route path="/signup" exact component={SignUp} />
+          <Route path="/detail" exact component={Detail} />
+          <Route path="/upload" exact component={Upload} />
+        </ConnectedRouter>
+      </Grid>
     </React.Fragment>
-  
+
   );
 }
 

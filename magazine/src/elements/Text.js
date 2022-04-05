@@ -27,13 +27,16 @@ Text.defaultProps = {
   bold: false,
   color: '#333',
   size: '14px',
+  textalign: false,
 }
 
 const P = styled.p`
+  margin: 10px;
+  
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? "600" : "400")};
-  
+
   ${(props) => props.textalign ? `text-align: ${props.textalign};` : "" };
 `;
 
