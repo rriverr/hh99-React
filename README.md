@@ -7,7 +7,7 @@
 </div>
 
 ## 1주차
-[**🔗 주간 평점 남기기**](https://github.com/rriverr/hh99-React/tree/main/week-check)
+[**🔗 주간 평점 남기기**](https://github.com/rriverr/hh99-React/tree/main/week-checker)
 
 ## 2주차
 [**🔗 나만의 사전**](https://github.com/rriverr/hh99-React/tree/main/dictionary)
