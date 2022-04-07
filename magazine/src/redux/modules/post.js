@@ -1,8 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { db } from "../../shared/firebase";
+import { db, storage } from "../../shared/firebase";
 import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
 import moment from "moment";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { actionCreaters as imageActions } from './image'
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -32,7 +34,7 @@ const initialPost = {
 
 
 const addPostFB = (contents = "",) => {
-  return async function (dispatch, getState, { history }) {
+  return function (dispatch, getState, { history }) {
     const _user = getState().user.user;
     const user_info = {
       user_name: _user.user_name,
@@ -45,14 +47,30 @@ const addPostFB = (contents = "",) => {
       insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
     };
 
-    const _data = {...user_info, ..._post};
-    const new_data = await addDoc(collection(db, "post"), _data);
-    console.log("new_data", (await getDoc(new_data)).data());
-    const get_data = await getDoc(new_data);
-    const post_data = {id:get_data.id, user_info, ..._post};
-    console.log(get_data.id);
-    dispatch(addPost(post_data));
-    history.replace('/');
+    // 이미지 추가
+    const _image = getState().image.preview
+    // console.log(_image);
+    // console.log(typeof _image);
+    const _upload = ref(storage, `images/${user_info.user_id}_${new Date().getTime()}`);
+    uploadString(_upload, _image, 'data_url').then((snapshot) => {
+      getDownloadURL(_upload).then(url => {
+        // console.log("url!!", url); 
+        return url;
+      }).then( async url => {
+        const _data = {...user_info, ..._post, image_url: url};
+        const new_data = await addDoc( collection(db, "post"), _data);
+        // console.log("new_data", (getDocs(new_data)).data());
+        const get_data = await getDoc(new_data);
+        const post_data = {id:get_data.id, user_info, ..._post, image_url: url};
+        // console.log(get_data.id);
+        
+        dispatch( addPost(post_data));
+        history.replace('/');
+
+        dispatch(imageActions.setPreview(null));
+        
+      })
+    })
   }
 }
 

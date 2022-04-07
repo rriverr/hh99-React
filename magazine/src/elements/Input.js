@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 const Input = (props) => {
-  const { label, placeholder, type, textarea } = props;
+  const { label, placeholder, type, textarea, _ref } = props;
 
   if (textarea) {
     return (
@@ -17,7 +17,7 @@ const Input = (props) => {
   if (type === "file") {
     return (
       <React.Fragment>
-        <InputBox type={type} {...props} />
+        <InputBox type={type} {...props} ref={_ref} />
       </React.Fragment>
     )
   }
